@@ -140,53 +140,24 @@ clf.score(X_test, y_test)
 ```
 
 
+#### Keras
 
 
+#### Ionic Radius
 
 
+#### Further Development
 
 
-### Installing
+#### Conclusion
 
-A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
+PS: next time listen to the PhD and start with Keras straight away.
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
-In order to deploy this on your own system, you must have you ICSD database or you can use the one used in this project.
+In order to deploy this on your own system, you must have your ICSD database or you can use the one used in this project.
 
 ## Contributing
 
@@ -210,10 +181,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Inspiration
 * etc
 
-
-
-
-
+## Bibliography
+Please find here a brief list of useful links or papers that could be used or that I personnaly used.
 
 https://www.google.com/search?client=safari&rls=en&ei=P0vSX5HFKsPVkgXH-Y-ABw&q=callback+keras&oq=callback+keras&gs_lcp=CgZwc3ktYWIQAzIECAAQEzIECAAQEzIECAAQEzIECAAQEzIGCAAQHhATMgYIABAeEBMyBggAEB4QEzIGCAAQHhATMgYIABAeEBMyBggAEB4QEzoECAAQR1CcFVicFWCrGWgAcAJ4AIABV4gBV5IBATGYAQCgAQGqAQdnd3Mtd2l6yAEIwAEB&sclient=psy-ab&ved=0ahUKEwjR4NKl6cPtAhXDqqQKHcf8A3AQ4dUDCAw&uact=5
 
