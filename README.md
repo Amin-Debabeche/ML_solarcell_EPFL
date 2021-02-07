@@ -42,7 +42,35 @@ The package SickitLearn is the simplest one to use in the possible ML packages, 
 ### Code
 
 #### ICSD - Halide
-CACA
+First open the text file queried on ICSD.
+```
+df = pd.DataFrame(pd.read_table("ICSD-halides.txt"))
+df.rename(columns = {"Unnamed: 4": "Perovskite_label"},  
+          inplace = True)
+#df = df.rename(columns = lambda x: x+':')
+df['Perovskite_label']=0
+df.fillna('-',inplace = True)
+#df
+```
+Labelling the perovskites.
+```
+for l in range(len(df)):
+    if 'Perovskite' in df.StructureType[l] or "perovskite" in df.StructureType:
+        df.Perovskite_label[l] = 1
+```
+Get rid of duplicate, polymorpishm and get rid of complex so stochiometric are only integers.
+```
+a = []
+for l in range(len(df)):
+    if '.' in df.StructuredFormula[l]:
+        #print (df.StructuredFormula[l])
+        a.append(l)
+        
+df_complex = df.drop(a, axis=0)
+df_complex.sort_values(by=['Perovskite_label'], ascending=False, inplace=True)
+df_complex.reset_index(drop=True, inplace=True)
+#df_complex
+```
 
 
 
