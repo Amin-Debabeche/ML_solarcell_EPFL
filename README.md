@@ -1,9 +1,121 @@
 # Double Perovskite Neuronal Network Classification
 
-## Amin Debabeche
-## PhD Assistant: Alexander Fedorovskiy
+The discussed algorithm aims to use a machine learning prediction strategies to fuide the development of high, stable and efficient performing double perovksite solar cells. In order to optimize the material composition, develop design strategies, and predict the performance of DPSCs.
 
-### Molecular Engineering of Functional Materials Lab EPFL
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Prerequisites
+
+The list of software or packages that are used in the script and that you may need before using it.
+
+* Python latest version
+* Pip - to install the packages
+* Pandas
+* Numpy
+* Matplotlib
+* Scipy
+* Sklearn
+* Keras
+
+### Introduction
+Perovskite are materials having a crystal structure similar to the mineral called perovskite, calcium titatium oxide (CaTiO3). The general formula of perovskite compounds is ABX3. Where 'A', 'B' are cations of different sizes, with A being the biggest of the two and 'X' is an anion most frequently oxide. It is one of the most abundant structural families, they are found in an normous number of compounds with wide-ranging properties, applications and importance.
+
+In this project the double perovskite like structure is investigated. It is similar to single perovskite except that the unit cell is twice of perovskite. With similar architecture of 12 coordinate A sites and 6 coordinate B sites, but two cations are ordered on the B site and the general structure is thus the following: A2BB'X6 with X being halides or oxide. As you will see later there are many possibilites of double perovskite structure, thus thousands of possibile solar cells possibilities.
+
+!(aenm201803150-fig-0001-m.jpg)
+
+
+Perovskite solar cell is a type of solar cell which incorporate a material with a perovkiste-structure compound as the light-harvesting active layer. In general they are cheap to produce and simple to manufacture. In addition, from its beggining in 2009 the efficiencies of such device has increase from 3.8% to 29.15% recently. This exceeds the maximum efficiency achieved in a single-junction silicon solar cell. This is why they are placed as the fastest-advancing solar technology nowadays. This combined to their commerciale attractivness due to low production costs, perovskite solar cell researchs are published every day.
+
+But imagine trying the thousands of hundreds of double perovskite like material as solar cell. It will cost to much in R&d and it is time consuming. This is where Machine Learning From the Inorganic Crystal Structure Database (ISCD) two double perovskite like material parsed database was generated, halide perovskite and oxygen perovskite.
+
+After some manipulation and Data Cleaning these databases are used in the Neuronal-Network. The main aim of Data Cleaning is to identify and remove errors & duplicate data, in order to create a reliable dataset. This improves the quality of the training data for analytics and enables accurate decision-making.
+
+
+
+
+### Installing
+
+A step by step series of examples that tell you how to get a development env running
+
+Say what the step will be
+
+```
+Give the example
+```
+
+And repeat
+
+```
+until finished
+```
+
+End with an example of getting some data out of the system or using it for a little demo
+
+## Running the tests
+
+Explain how to run the automated tests for this system
+
+### Break down into end to end tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+### And coding style tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+## Deployment
+
+In order to deploy this on your own system, you must have you ICSD database or you can use the one used in this project.
+
+## Contributing
+
+There are no contribution for this project.
+
+## Versioning
+
+There is only one version available and you may develop your own. 
+
+## Authors
+
+* **Amin Debabeche** - *EPFL* - Molecular Engineering of Functional Materials Lab
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* PhD Assistant: Alexander Federovskiy
+* Inspiration
+* etc
+
+
+
+
+
+
+# Double Perovskite Neuronal Network Classification
+
+## Amin Debabeche
+## PhD Assistant: Alexander Fedorovskiy - Molecular Engineering of Functional Materials Lab EPFL
+
+### Abstract
+The discussed algorithm aims to use a machine learning prediction strategies to fuide the development of high, stable and efficient performing double perovksite solar cells. In order to optimize the material composition, develop design strategies, and predict the performance of DPSCs.
+
+### Introduction
+
+
 
 
 Using parsed data from ICSD, an inorganic database to classify best materials to be used as a double perovskite in as solar cell.
