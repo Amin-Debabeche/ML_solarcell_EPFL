@@ -29,9 +29,13 @@ In this project the double perovskite like structure is investigated. It is simi
 
 Perovskite solar cell is a type of solar cell which incorporate a material with a perovkiste-structure compound as the light-harvesting active layer. In general they are cheap to produce and simple to manufacture. In addition, from its beggining in 2009 the efficiencies of such device has increase from 3.8% to 29.15% recently. This exceeds the maximum efficiency achieved in a single-junction silicon solar cell. This is why they are placed as the fastest-advancing solar technology nowadays. This combined to their commerciale attractivness due to low production costs, perovskite solar cell researchs are published every day.
 
-But imagine trying the thousands of hundreds of double perovskite like material as solar cell. It will cost to much in R&d and it is time consuming. This is where Machine Learning From the Inorganic Crystal Structure Database (ISCD) two double perovskite like material parsed database was generated, halide perovskite and oxygen perovskite.
+But imagine trying the thousands of hundreds of double perovskite like material as solar cell. It will cost to much in R&d and it is time consuming. This is where Machine Learning comes into scene. By training a Neural Network one could build a tool to first recognize what materials have double perovskite structure. Then many other different prospects are conceivable from such NN.
 
-After some manipulation and Data Cleaning these databases are used in the Neuronal-Network. The main aim of Data Cleaning is to identify and remove errors & duplicate data, in order to create a reliable dataset. This improves the quality of the training data for analytics and enables accurate decision-making.
+From the Inorganic Crystal Structure Database (ISCD) two double perovskite like material parsed database was generated, halide perovskite and oxygen perovskite. The following ANX formula 'abc2x6' was used on ICSD to query every crystal with such structure. Also the temperature and pression of the experiment was set to 273-313 K and 0.101325 MPa (NTP).
+
+After some manipulation and Data Cleaning these databases are used in the Neuronal-Network. The main aim of Data Cleaning is to identify and remove errors & duplicate data, in order to create a reliable dataset. This improves the quality of the training data for analytics and enables accurate decision-making. The parsed dataframe of halides is not usefull. Indeed, they are only five perovskite like structure out of 144 in the whole dataframe and it is not enough to be used in a NN. However, one should notes that they may be some experiments where the researchers did not investigate enough and did not label the structure as perovskite on ICSD. In opposition, the oxide dataframe has enough data and enough labelled perovskite to be used in the algorithm.
+
+In a first instance, I tried to use the package SickitLearn as I was more confortable with it 
 
 
 
