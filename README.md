@@ -63,14 +63,29 @@ Get rid of duplicate, polymorpishm and get rid of complex so stochiometric are o
 a = []
 for l in range(len(df)):
     if '.' in df.StructuredFormula[l]:
-        #print (df.StructuredFormula[l])
         a.append(l)
-        
 df_complex = df.drop(a, axis=0)
 df_complex.sort_values(by=['Perovskite_label'], ascending=False, inplace=True)
 df_complex.reset_index(drop=True, inplace=True)
-#df_complex
 ```
+Extraction as excel file
+```
+df_complex_multiplicate.to_csv('Parsed-halides.csv', columns = ['StructuredFormula', 'Perovskite_label'], index=False)
+```
+Dataframe with only fiver perovskites
+```
+StructuredFormula,Perovskite_label
+Na Ba Li Ni F6,1
+Na2 Li (Al F6),1
+Li Na2 (Al F6),1
+K2 Li (Al F6),1
+Rb2 K Y F6,1
+Rb2 Na Y F6,0
+Cs2 Na Y F6,0
+K2 Na Tl F6,0
+K2 Na Y F6,0
+```
+
 
 
 
