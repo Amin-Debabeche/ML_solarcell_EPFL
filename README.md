@@ -19,6 +19,7 @@ The list of software or packages that are used in the script and that you may ne
 * Mendeleev
 * Sklearn
 * Keras
+* Helvetios - cluster to perform the training
 
 ### Introduction
 Perovskite are materials having a crystal structure similar to the mineral called perovskite, calcium titatium oxide (CaTiO3). The general formula of perovskite compounds is ABX3. Where 'A', 'B' are cations of different sizes, with A being the biggest of the two and 'X' is an anion most frequently oxide. It is one of the most abundant structural families, they are found in an normous number of compounds with wide-ranging properties, applications and importance.
@@ -36,7 +37,7 @@ From the Inorganic Crystal Structure Database (ISCD) two double perovskite like 
 
 After some manipulation and Data Cleaning these databases are used in the Neuronal-Network. The main aim of Data Cleaning is to identify and remove errors & duplicate data, in order to create a reliable dataset. This improves the quality of the training data for analytics and enables accurate decision-making. The parsed dataframe of halides is not usefull. Indeed, they are only five perovskite like structure out of 144 in the whole dataframe and it is not enough to be used in a NN. However, one should notes that they may be some experiments where the researchers did not investigate enough and did not label the structure as perovskite on ICSD. In opposition, the oxide dataframe has enough data and enough labelled perovskite to be used in the algorithm.
 
-In a first instance, I tried to use the package SickitLearn to perform the classification as I was more confortable with it, the results can be found in the results section.
+In a first instance, I tried to use the package SickitLearn to perform the classification as I was more confortable with it, the results can be found in the Sickit-Learn subsection.
 
 The package SickitLearn is the simplest one to use in the possible ML packages, it also offers a wide range of possibilites. However, the hyperparameters characterization is not enough modular and versatile. Besides it does not give the possibility to perform a !!!!!!!word!!!!!!!. That is the reasons I switched to the Keras library to perform my NN.
 
@@ -105,6 +106,39 @@ First of all the following dataframe is used for to train the NN, with four feat
 582	La	Zn	Ti	O	0
 583	Rb	U	Si	O	0
 ```
+One can withdraw the fourth label since it is always an oxygen atom for every crystal structure. Also note that the dataset is a bit biased to the label 1 thus the loss should be weighted
+
+#### Sickit-Learn
+Because of the size of the data collections, no validation set are used and the train/test set is split as 70/30. Data is also normalized in order be used in the training, I decided to choose a absolute maximum scaling.
+```
+X = Features[:,0:4]
+y = Features[:,-1].astype('int')
+X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y,
+                                                    random_state=21)
+sklearn.preprocessing.normalize(X, norm='l1', *, axis=1, copy=True, return_norm=False)
+max_abs_scaler = preprocessing.MaxAbsScaler()
+X_train = max_abs_scaler.fit_transform(X_train)
+```
+
+The best hyperparameters found for the classification are the following: 
+* max_iter=360 - It was the first hyperparameter investigated with a dummy NN. A simple plot comparing the number of epoch to the score was made to choose the best number of epochs.
+* activation='relu' - Most used activation so far and does the job perfectly well.
+* solver='lbfgs' - The most appropriate solver so far in accordance to publications.
+* alpha=1e-5 - Seems to be in between overfitting and underfitting after trials.
+* hidden_layer_sizes=(100,150,50) - Performed many trials and seems to yield the optimal value.
+** The number of hidden neurons should be between the size of the input layer and the size of the output layer.
+** The number of hidden neurons should be 2/3 the size of the input layer, plus the size of the output layer.
+** The number of hidden neurons should be less than twice the size of the input layer.
+* learning_rate='adaptive' - Again the most appropriate in accordance to the argument.
+Most of the tuning rely on intuitions, testings and previous academic researchs.
+
+```
+clf = MLPClassifier(random_state=11, max_iter=360, activation='relu', solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(100,150,50),learning_rate='adaptive').fit(X_train, y_train)
+clf.predict_proba(X_test[:1])
+clf.predict(X_test[:, :])
+clf.score(X_test, y_test)
+```
+
 
 
 
