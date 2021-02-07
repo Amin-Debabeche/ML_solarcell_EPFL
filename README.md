@@ -35,7 +35,14 @@ From the Inorganic Crystal Structure Database (ISCD) two double perovskite like 
 
 After some manipulation and Data Cleaning these databases are used in the Neuronal-Network. The main aim of Data Cleaning is to identify and remove errors & duplicate data, in order to create a reliable dataset. This improves the quality of the training data for analytics and enables accurate decision-making. The parsed dataframe of halides is not usefull. Indeed, they are only five perovskite like structure out of 144 in the whole dataframe and it is not enough to be used in a NN. However, one should notes that they may be some experiments where the researchers did not investigate enough and did not label the structure as perovskite on ICSD. In opposition, the oxide dataframe has enough data and enough labelled perovskite to be used in the algorithm.
 
-In a first instance, I tried to use the package SickitLearn as I was more confortable with it 
+In a first instance, I tried to use the package SickitLearn to perform the classification as I was more confortable with it, the results can be found in the results section.
+
+The package SickitLearn is the simplest one to use in the possible ML packages, it also offers a wide range of possibilites. However, the hyperparameters characterization is not enough modular and versatile. Besides it does not give the possibility to perform a !!!!!!!word!!!!!!!. That is the reasons I switched to the Keras library to perform my NN.
+
+### Code
+
+#### ICSD - Halide
+CACA
 
 
 
