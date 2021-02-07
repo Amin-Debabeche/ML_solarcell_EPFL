@@ -16,6 +16,7 @@ The list of software or packages that are used in the script and that you may ne
 * Numpy
 * Matplotlib
 * Scipy
+* Mendeleev
 * Sklearn
 * Keras
 
@@ -72,7 +73,7 @@ Extraction as excel file
 ```
 df_complex_multiplicate.to_csv('Parsed-halides.csv', columns = ['StructuredFormula', 'Perovskite_label'], index=False)
 ```
-Dataframe with only fiver perovskites
+Dataframe with only five perovskites
 ```
 StructuredFormula,Perovskite_label
 Na Ba Li Ni F6,1
@@ -85,6 +86,27 @@ Cs2 Na Y F6,0
 K2 Na Tl F6,0
 K2 Na Y F6,0
 ```
+
+#### ICSD - Oxide
+The procedure code is similar than for the halide part, please refer to the code directly for further information. There are 382 perovskites out of 583 structures.
+
+First of all the following dataframe is used for to train the NN, with four features and one label.
+```
+	Atom1	Atom2	Atom3	Atom4	Perovskite_label
+0	Y	Ni	Mn	O	1
+1	Ba	La	Ru	O	1
+2	Sr	Ho	Mo	O	1
+3	Sr	Dy	Mo	O	1
+4	Sr	Gd	Mo	O	1
+...	...	...	...	...	...
+579	Na	Cr	Ge	O	0
+580	K	Gd	Si	O	0
+581	Li	La	C	O	0
+582	La	Zn	Ti	O	0
+583	Rb	U	Si	O	0
+```
+
+
 
 
 
@@ -157,22 +179,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 
 
-
-
-# Double Perovskite Neuronal Network Classification
-
-## Amin Debabeche
-## PhD Assistant: Alexander Fedorovskiy - Molecular Engineering of Functional Materials Lab EPFL
-
-### Abstract
-The discussed algorithm aims to use a machine learning prediction strategies to fuide the development of high, stable and efficient performing double perovksite solar cells. In order to optimize the material composition, develop design strategies, and predict the performance of DPSCs.
-
-### Introduction
-
-
-
-
-Using parsed data from ICSD, an inorganic database to classify best materials to be used as a double perovskite in as solar cell.
 
 
 https://www.google.com/search?client=safari&rls=en&ei=P0vSX5HFKsPVkgXH-Y-ABw&q=callback+keras&oq=callback+keras&gs_lcp=CgZwc3ktYWIQAzIECAAQEzIECAAQEzIECAAQEzIECAAQEzIGCAAQHhATMgYIABAeEBMyBggAEB4QEzIGCAAQHhATMgYIABAeEBMyBggAEB4QEzoECAAQR1CcFVicFWCrGWgAcAJ4AIABV4gBV5IBATGYAQCgAQGqAQdnd3Mtd2l6yAEIwAEB&sclient=psy-ab&ved=0ahUKEwjR4NKl6cPtAhXDqqQKHcf8A3AQ4dUDCAw&uact=5
