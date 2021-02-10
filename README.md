@@ -172,7 +172,9 @@ The best hyperparameters found for the classification are the following:
 * hidden_layer_sizes=(80,50,680) - Performed many trials and seems to yield the optimal value.
 
 ** The number of hidden neurons should be between the size of the input layer and the size of the output layer.
+
 ** The number of hidden neurons should be 2/3 the size of the input layer, plus the size of the output layer.
+
 ** The number of hidden neurons should be less than twice the size of the input layer.
 
 * learning_rate='adaptive' - Again the most appropriate in accordance to the argument.
@@ -257,19 +259,41 @@ model.evaluate(X_test, y_test)[1]
 
 #### Ionic Radius
 
-#### Goldsmith Factor
+In order to improve the Neural Network one could add extra features to further specify our data set. In a first instance I tried to include the Ionic radius as the crystal structure of the compound will be highly influenced by the radius size of each atom. Again the procedure is pretty similar and you may find in the code section all the details of the computation.
 
-#### Coordination Number
+The architecture is the following:
+```
+model = Sequential()
 
+model.add(Dense(100, activation='relu', input_shape=(8,)))
 
-#### Further Development
+model.add(Dropout(0.18))
 
+model.add(Dense(150, activation='relu', kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01)))
+
+model.add(Dropout(0.1))
+
+model.add(Dense(50, activation='relu', kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01)))
+
+model.add(Dropout(0.15))
+
+model.add(Dense(1, activation='sigmoid'))
+
+model.compile(loss='binary_crossentropy',
+              optimizer='sgd',
+              metrics=['accuracy'])
+            
+history = model.fit(X_train, y_train, epochs=100, batch_size=5, verbose=1,validation_data=(X_test,y_test))
+model.evaluate(X_test, y_test)[1]
+```
+It yields a highest score than before due to the precision of features.
+```
+loss: 0.3998 - accuracy: 0.9082
+```
 
 #### Conclusion
 
-
-PS: next time listen to the PhD and start with Keras straight away.
-
+As a further development one could add extra features to the data set such as the Goldsmith factor, coordination number or individual electronegativity. They are many possibilites for the development of new architecture for the neural network. Also for such data set with only atomic number and ionic radius a simple decision tree would be sufficient to perform very well. After some trials, I found an accuracy of 93% for a decision tree based machine learning algorithm. I also tried to implement a bayesian optimisation in my Keras code and you can found find the details of it in the 'Baysian-keras' code file.
 
 ## Deployment
 
