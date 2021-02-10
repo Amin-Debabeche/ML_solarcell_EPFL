@@ -110,40 +110,106 @@ One can withdraw the fourth label since it is always an oxygen atom for every cr
 
 #### Sickit-Learn
 Because of the size of the data collections, no validation set are used and the train/test set is split as 70/30. Data is also normalized in order be used in the training, I decided to choose a absolute maximum scaling.
+
 ```
 X = Features[:,0:4]
 y = Features[:,-1].astype('int')
+X = sklearn.preprocessing.normalize(X, norm='l2', axis=1, copy=True, return_norm=False)
 X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y,
-                                                    random_state=21)
-sklearn.preprocessing.normalize(X, norm='l1', *, axis=1, copy=True, return_norm=False)
-max_abs_scaler = preprocessing.MaxAbsScaler()
-X_train = max_abs_scaler.fit_transform(X_train)
+                                                    random_state=1)
+transformer = MaxAbsScaler().fit(X_train)
+transformer.transform(X_train)
 ```
 
+As a first try just to see the yielding values of a basic Neural Network
+```
+clf = MLPClassifier(random_state=1, max_iter=1750, activation='relu', solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(100,150,50),learning_rate='adaptive').fit(X_train, y_train)
+clf.predict_proba(X_test[:1])
+clf.predict(X_test[:, :])
+print(clf.score(X_test, y_test))
+```
+The resulting score is minimal but has a first good yield.
+```
+0.7473118279569892
+```
+
+The first hyperparameter I altered is the number of iterations.
+```
+score = []
+for l in range(20,2000,10):
+    clf = MLPClassifier(random_state=1, max_iter=l, activation='relu', solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(20,20,20,20),learning_rate='adaptive').fit(X_train, y_train)
+    score.append(clf.score(X_test, y_test))
+```
+![main](Unknown)
+
+We find a optimal number of iterations of 240 with a score of:
+```
+0.7849462365591398
+```
+Then for the network, I have tried many possibilities with three layers and different sizes of neurosn the following codes:
+
+```
+for l in range(20,1000,30):
+    for i in range(20,1000,30):
+        for g in range(20,1000,30):
+            clf = MLPClassifier(random_state=1, max_iter=240, activation='relu', solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(l,i,g),learning_rate='adaptive').fit(X_train, y_train)
+            score.append(clf.score(X_test, y_test))
+```
+![main](Unknown-2)
+Resulting in a network of (80, 50, 680).
+
+
+In order to also get an better overview on the capacities of the NN the roc curve is computed.
+![main](Unknown-3)
+
+
+
 The best hyperparameters found for the classification are the following: 
-* max_iter=360 - It was the first hyperparameter investigated with a dummy NN. A simple plot comparing the number of epoch to the score was made to choose the best number of epochs.
+* max_iter=240 - It was the first hyperparameter investigated with a dummy NN. A simple plot comparing the number of epoch to the score was made to choose the best number of epochs.
 * activation='relu' - Most used activation so far and does the job perfectly well.
 * solver='lbfgs' - The most appropriate solver so far in accordance to publications.
-* alpha=1e-5 - Seems to be in between overfitting and underfitting after trials.
-* hidden_layer_sizes=(100,150,50) - Performed many trials and seems to yield the optimal value.
+* alpha=1e-5 - Seems to be in between overfitting and underfitting after minimalistic trials.
+* hidden_layer_sizes=(80,50,680) - Performed many trials and seems to yield the optimal value.
+
 ** The number of hidden neurons should be between the size of the input layer and the size of the output layer.
 ** The number of hidden neurons should be 2/3 the size of the input layer, plus the size of the output layer.
 ** The number of hidden neurons should be less than twice the size of the input layer.
+
 * learning_rate='adaptive' - Again the most appropriate in accordance to the argument.
 Most of the tuning rely on intuitions, testings and previous academic researchs.
 
-```
-clf = MLPClassifier(random_state=11, max_iter=360, activation='relu', solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(100,150,50),learning_rate='adaptive').fit(X_train, y_train)
-clf.predict_proba(X_test[:1])
-clf.predict(X_test[:, :])
-clf.score(X_test, y_test)
-```
 
+In order to be go further I also performed an GridSearchCV to find randomly the best hyperparameters.
+
+```
+mlp_gs = MLPClassifier(max_iter=240)
+parameter_space = {
+    'hidden_layer_sizes': [(80,50,680),],
+    'activation': ['tanh', 'relu', 'logistic'],
+    'solver': ['sgd', 'adam','lbfgs'],
+    'alpha': 10.0 ** -np.arange(1, 7),
+    'learning_rate': ["constant", "invscaling", "adaptive"],
+    'learning_rate_init': 10.0 ** -np.arange(1, 6),
+    'random_state':np.arange(1, 4),
+    'tol' : 10.0 ** -np.arange(1, 6),
+}
+clf = GridSearchCV(mlp_gs, parameter_space, n_jobs=-1, cv=5)
+clf.fit(X_train, y_train)
+print(clf.score(X_test, y_test))
+print(clf.best_estimator_)
+```
+The best estimator found is the following in accordance with the previous hyperparameters with a similar score
+
+One should note that the atomic number is not a sufficient feature to reach a high value of accuracy and we should add other features to improve our score.
 
 #### Keras
 
 
 #### Ionic Radius
+
+#### Goldsmith Factor
+
+#### Coordination Number
 
 
 #### Further Development
@@ -189,3 +255,4 @@ Please find here a brief list of useful links or papers that could be used or th
 * https://www.google.com/search?client=safari&rls=en&q=keras+tuner&ie=UTF-8&oe=UTF-8
 * https://www.dlology.com/blog/quick-notes-on-how-to-choose-optimizer-in-keras/
 * https://c4science.ch/source/perovclass/browse/master/networks/ABX3%2BABO3%20n/ABX3%2BABO3_n.py
+* https://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html
