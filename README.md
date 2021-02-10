@@ -202,7 +202,57 @@ The best estimator found is the following in accordance with the previous hyperp
 
 One should note that the atomic number is not a sufficient feature to reach a high value of accuracy and we should add other features to improve our score.
 
-#### Keras
+#### Keras first version
+
+The data procedure for Keras is prettry similar to the above code and please refer to the code file 'Keras_version' for more details. I tried a first simply  version with the following architecture.
+
+![main](Unknown-4)
+
+The best accuracy value yield is of of the following:
+```
+loss: 0.3814 - accuracy: 0.8538 - val_loss: 0.4064 - val_accuracy: 0.8430
+```
+
+#### Keras second version
+
+Again the procedure is similar and can be found in the code file.
+The following architecture yields an optimal value of 89%.
+```
+model = Sequential()
+
+model.add(Dense(2000, activation='relu', input_shape=(4,)))
+model.add(BatchNormalization())
+
+model.add(Dropout(0.5))
+
+model.add(Dense(1800, activation='relu', kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01)))
+model.add(BatchNormalization())
+
+
+model.add(Dense(1000, activation='relu', kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01)))
+model.add(BatchNormalization())
+
+
+
+model.add(Dense(500, activation='relu', kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01)))
+model.add(BatchNormalization())
+
+
+
+model.add(Dense(300, activation='relu', kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01)))
+model.add(BatchNormalization())
+
+model.add(Dropout(0.5))
+
+model.add(Dense(1, activation='sigmoid'))
+
+model.compile(loss='binary_crossentropy',
+              optimizer='adam',
+              metrics=['accuracy'])
+                   
+history = model.fit(X_train, y_train, epochs=20, batch_size=32, verbose=1,validation_data=(X_test,y_test))
+model.evaluate(X_test, y_test)[1]
+```
 
 
 #### Ionic Radius
@@ -244,15 +294,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * PhD Assistant: Alexander Federovskiy
-* Inspiration
-* etc
-
-## Bibliography
-Please find here a brief list of useful links or papers that could be used or that I personnaly used.
-
-* https://www.google.com/search?client=safari&rls=en&ei=P0vSX5HFKsPVkgXH-Y-ABw&q=callback+keras&oq=callback+keras&gs_lcp=CgZwc3ktYWIQAzIECAAQEzIECAAQEzIECAAQEzIECAAQEzIGCAAQHhATMgYIABAeEBMyBggAEB4QEzIGCAAQHhATMgYIABAeEBMyBggAEB4QEzoECAAQR1CcFVicFWCrGWgAcAJ4AIABV4gBV5IBATGYAQCgAQGqAQdnd3Mtd2l6yAEIwAEB&sclient=psy-ab&ved=0ahUKEwjR4NKl6cPtAhXDqqQKHcf8A3AQ4dUDCAw&uact=5
-* https://www.google.com/search?q=optimizer+keras+gif&client=safari&rls=en&source=lnms&tbm=isch&sa=X&ved=2ahUKEwicifed5cPtAhURDOwKHbrCAB8Q_AUoAXoECA8QAw&biw=1280&bih=660#imgrc=6Hh6z6leHFImuM
-* https://www.google.com/search?client=safari&rls=en&q=keras+tuner&ie=UTF-8&oe=UTF-8
-* https://www.dlology.com/blog/quick-notes-on-how-to-choose-optimizer-in-keras/
-* https://c4science.ch/source/perovclass/browse/master/networks/ABX3%2BABO3%20n/ABX3%2BABO3_n.py
-* https://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html
